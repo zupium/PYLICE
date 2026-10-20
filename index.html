@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PYLICE — Detektif Siber &amp; Investigasi Kode Python</title>
+  <meta name="description" content="Pecahkan kasus kejahatan siber berantai dengan membedah kode Python pelaku. Game detektif edukatif bertema noir vintage.">
+  
+  <!-- Google Fonts: Special Elite (Typewriter), Playfair Display (Serif Elegance), JetBrains Mono (Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Special+Elite&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="noir-theme">
+
+  <!-- ================= TITLE SCREEN ================= -->
+  <section id="titleScreen" class="screen title-screen">
+    <div class="vintage-vignette"></div>
+    <div class="grain-overlay"></div>
+    
+    <div class="title-container">
+      <div class="badge-emblem">
+        <div class="emblem-inner">
+          <span class="emblem-icon"><img src="asset/pylice_logo.png" alt="pylice"></span>
+        </div>
+      </div>
+
+      <div class="title-header">
+        <div class="stamp-classified" id="titleStamp">BERKAS RESMI • RAHASIA NEGARA</div>
+        <h1 class="game-logo">P Y L I C E</h1>
+        <p class="game-subtitle" id="titleSubtitle">Investigasi Logika Python &amp; Penegakan Kejahatan Siber</p>
+      </div>
+
+      <!-- Language Selector on Title Screen -->
+      <div class="language-selection-box">
+        <span class="lang-prompt" id="titleLangPrompt">PILIH BAHASA / SELECT LANGUAGE:</span>
+        <div class="lang-btn-group">
+          <button type="button" class="btn-lang active" data-lang="id">Bahasa Indonesia</button>
+          <button type="button" class="btn-lang" data-lang="en">English</button>
+        </div>
+      </div>
+
+      <div class="quote-box">
+        <p class="tagline" id="titleTagline">“Setiap kejahatan meninggalkan jejak. Setiap baris kode bercerita.”</p>
+      </div>
+
+      <div class="title-brief-card">
+        <h3 id="titleDispatchHeading">DISPATCH MASUK DARI DITRESKRIMSUS SIBER</h3>
+        <p id="titleDispatchText">Gelombang kejahatan siber canggih telah membobol institusi penting. Satu-satunya barang bukti yang tertinggal adalah kode berbahaya Python. Masuki peran detektif siber: bedah skripnya, pecahkan sandi kriptografinya, dan seret pelakunya ke pengadilan.</p>
+        
+        <div class="case-preview-pills">
+          <span class="pill" id="pillCases">5 Kasus Unik</span>
+          <span class="pill" id="pillConcepts">Konsep Nyata Python</span>
+          <span class="pill" id="pillDecoders">Alat Forensik Interaktif</span>
+          <span class="pill" id="pillZeroBoilerplate">100% Edukatif</span>
+        </div>
+      </div>
+
+      <div class="title-actions">
+        <button id="titleStartBtn" class="btn-detective-gold">
+          <span id="titleStartBtnText">BUKA BERKAS KASUS PERTAMA</span>
+        </button>
+      </div>
+
+      <div class="title-footer">
+        <span id="titleDivisionFooter">DIVISI PYLICE • UNIT FORENSIK SIBER • V1.0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INVESTIGATION SCREEN ================= -->
+  <section id="gameScreen" class="screen game-screen hidden">
+    <!-- Top Bar -->
+    <header class="investigation-topbar">
+      <div class="topbar-left">
+        <div class="pylice-brand">
+          <span class="badge-mini"><img src="asset/pylice_logo.png" alt="pylice"> PYLICE</span>
+        </div>
+        <div class="case-meta-group">
+          <div class="case-id-badge" id="topCaseNum">KASUS #1</div>
+          <div class="case-name-text" id="topCaseTitle">Kubah yang Lenyap</div>
+          <div class="case-diff-badge" id="topCaseDiff">Pemula ★☆☆☆☆</div>
+        </div>
+      </div>
+
+      <div class="topbar-center">
+        <div class="victim-callout">
+          <span class="callout-label" id="topVictimLabel">SASARAN / KORBAN:</span>
+          <span class="callout-val" id="topCaseVictim">Sarah Chen, Metro Trust Bank</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <!-- In-game Language Switcher -->
+        <button id="langToggleBtn" class="topbar-btn btn-lang-toggle" title="Ganti Bahasa / Switch Language">
+          <span id="langCode">ID</span>
+        </button>
+        <button id="audioToggleBtn" class="topbar-btn btn-audio" title="Aktif/Nonaktif Suara">ON</button>
+        <button id="topBriefingBtn" class="topbar-btn btn-briefing">
+          <span id="topBriefingBtnText">Ringkasan Kasus</span>
+        </button>
+        <button id="topLockBtn" class="topbar-btn btn-lock-answer">
+          <span id="topLockBtnText">Kunci Jawaban</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Tab Navigation Bar -->
+    <nav class="mobile-nav-bar">
+      <button class="mobile-nav-btn active" data-tab="code" id="mobileTabCode">Kode Bukti</button>
+      <button class="mobile-nav-btn" data-tab="suspects" id="mobileTabSuspects">Suspek</button>
+      <button class="mobile-nav-btn" data-tab="notepad" id="mobileTabNotepad">Catatan &amp; Tools</button>
+    </nav>
+
+    <!-- Main Workspace Split Grid -->
+    <main class="investigation-workspace">
+      <!-- Left Column: Code Dossier -->
+      <section class="workspace-col col-code" id="codeCol">
+        <div class="panel-box code-panel-box" id="codeViewerContainer">
+          <!-- Populated by CodeViewer -->
+        </div>
+      </section>
+
+      <!-- Right Column: Suspects & Notebook -->
+      <section class="workspace-col col-right" id="rightCol">
+        <!-- Suspects Panel (Fully scrollable & constrained) -->
+        <div class="panel-box suspect-panel-box" id="suspectCol">
+          <div id="suspectListContainer">
+            <!-- Populated by UIRenderer -->
+          </div>
+        </div>
+
+        <!-- Notepad & Decoder Tools Panel (Fully scrollable & constrained) -->
+        <div class="panel-box notepad-panel-box" id="notepadCol">
+          <div id="notepadContainer">
+            <!-- Populated by Notepad -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Case Briefing Modal -->
+  <div class="modal" id="briefingModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog dossier-modal-dialog">
+      <div class="modal-header classified-folder-header">
+        <div class="folder-tab">
+          <span class="tab-classified-text">DIREKTORAT PENEGAKAN HUKUM SIBER</span>
+        </div>
+        <div class="modal-title-row">
+          <div class="case-header-pill" id="modalCaseTag">KASUS #1 — ★☆☆☆☆</div>
+          <h2 class="modal-case-title" id="modalCaseTitle">Kubah yang Lenyap</h2>
+        </div>
+      </div>
+
+      <div class="modal-body dossier-body">
+        <div class="dossier-spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">TANGGAL KEJADIAN:</span>
+            <span class="spec-val" id="modalCaseDate">15 Oktober 2026 - 03:47 WIB</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">KORBAN / ENTITAS:</span>
+            <span class="spec-val" id="modalCaseVictim">Sarah Chen</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">KERUGIAN / DAMPAK:</span>
+            <span class="spec-val alert-red" id="modalCaseLoss">$47,500</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">SISTEM YANG DIREBOB:</span>
+            <span class="spec-val font-mono" id="modalCaseSystem">Metro Trust Bank Gateway</span>
+          </div>
+        </div>
+
+        <div class="dossier-concepts-banner">
+          <span class="concepts-label">FOKUS LOGIKA PYTHON:</span>
+          <span class="concepts-val" id="modalCaseConcepts">Variabel • String • Caesar Cipher</span>
+        </div>
+
+        <div class="dossier-story-narrative">
+          <h4>KRONOLOGI &amp; RINGKASAN KASUS:</h4>
+          <p id="modalCaseStory">Memuat narasi kejadian...</p>
+        </div>
+
+        <div class="dossier-mission-box">
+          <strong>INSTRUKSI DETEKTIF:</strong>
+          <span>Teliti skrip Python yang tertinggal di panel kiri. Cocokkan nilai variabel, sandi, serta petunjuk tersembunyi dengan profil suspek untuk mengungkap pelakunya.</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="modalStartBtn" class="btn-detective-action">
+          MASUK KE RUANG INVESTIGASI
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Suspect Detail Profile Modal -->
+  <div class="modal" id="suspectModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog suspect-detail-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">BERKAS LENGKAP ORANG DALAM PENYELIDIKAN</h3>
+        <button class="btn-modal-close" id="suspectModalClose">&times;</button>
+      </div>
+      <div class="modal-body suspect-detail-body">
+        <div class="detail-avatar-col" id="suspectModalAvatar">
+          <!-- SVG inserted here -->
+        </div>
+        <div class="detail-info-col">
+          <h2 id="suspectModalName">Nama Suspek</h2>
+          <div class="detail-subhead">
+            <span id="suspectModalRole" class="role-text">Peran</span> &bull;
+            <span id="suspectModalAge" class="age-text">34 tahun</span>
+          </div>
+          <div class="badge-row">
+            <span id="suspectModalBadge" class="badge-tag">ID: MTB-001</span>
+            <span id="suspectModalAccess" class="badge-access">Izin Hak Akses: Tinggi</span>
+          </div>
+          <div class="bio-box">
+            <h4>LATAR BELAKANG &amp; KESAKSIAN:</h4>
+            <p id="suspectModalBio">Uraian alibi dan latar belakang...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Lock Answer Modal -->
+  <div class="modal" id="lockAnswerModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog lock-answer-dialog">
+      <div class="modal-header">
+        <div class="stamp-warning">TINDAKAN KRUSIAL</div>
+        <h2>AJUKAN DAKWAAN RESMI</h2>
+        <p class="lock-subtitle">Pilih individu yang jejak digital dan motifnya terbukti pada kode Python.</p>
+      </div>
+
+      <div class="modal-body">
+        <div class="warning-callout">
+          <strong>PERINGATAN KERAS DETEKTIF:</strong> Anda hanya memiliki <strong>SATU</strong> kali kesempatan! Jika Anda salah mendakwa orang, investigasi kasus ini harus diulang dari awal!
+        </div>
+
+        <div class="lock-grid" id="lockSuspectsGrid">
+          <!-- Suspect cards inserted here -->
+        </div>
+      </div>
+
+      <div class="modal-footer lock-footer">
+        <button id="cancelLockBtn" class="btn-cancel">Batalkan &amp; Pelajari Kode Lagi</button>
+        <button id="confirmLockBtn" class="btn-confirm-lock" disabled>
+          KONFIRMASI DAKWAAN &amp; TANGKAP
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Verdict Modal (Result) -->
+  <div class="modal" id="verdictModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog verdict-dialog">
+      <div class="modal-body" id="verdictModalContent">
+        <!-- Rendered dynamically (Guilty vs Cold) -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Grand Victory Modal (All 5 Cases Solved) -->
+  <div class="modal" id="victoryModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog victory-dialog">
+      <div class="victory-ribbon">PIAGAM KEHORMATAN KEPOLISIAN SIBER PYLICE</div>
+      <h2 class="victory-title">DETEKTIF SIBER UTAMA (MASTER DETECTIVE)</h2>
+      <p class="victory-lead">Luar biasa! Anda berhasil memecahkan seluruh 5 kasus kejahatan siber berantai dan membongkar setiap lapisan logika tersembunyi dalam kode Python.</p>
+
+      <div class="victory-records-card">
+        <h3>ARSIP KASUS YANG BERHASIL DIPECAHKAN:</h3>
+        <ul class="victory-cases-list">
+          <li><span>Kasus 1: Kubah yang Lenyap</span> <span class="tag-res">Variabel &amp; Caesar Cipher</span></li>
+          <li><span>Kasus 2: Buku Besar yang Bocor</span> <span class="tag-res">List, Dictionary &amp; ASCII chr()</span></li>
+          <li><span>Kasus 3: Pengepungan Sunyi</span> <span class="tag-res">File I/O, Hex &amp; Slices [::-1]</span></li>
+          <li><span>Kasus 4: Rekening Hantu</span> <span class="tag-res">Base64 &amp; Array Angka ASCII</span></li>
+          <li><span>Kasus 5: Arsitek Orang Dalam</span> <span class="tag-res">Literal Biner, ROT13 &amp; Decorator</span></li>
+        </ul>
+      </div>
+
+      <div class="victory-quote">
+        “Setiap baris kode bercerita. Anda telah membuktikan kemampuan membacanya dengan sempurna.”
+      </div>
+
+      <div class="victory-footer">
+        <button id="playAgainBtn" class="btn-detective-gold">
+        MAINKAN ULANG INVESTIGASI
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
